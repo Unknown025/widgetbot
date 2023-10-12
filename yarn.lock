@@ -1648,7 +1648,7 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@cerebral/fluent@~1.0.3":
+"@cerebral/fluent@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@cerebral/fluent/-/fluent-1.0.3.tgz#5823da5e02e0853e3d7dc11383c0ae0263d27c39"
   integrity sha512-p0A2FxgdYLRvbcbi7Sq9110+CjCrccezmVEh+4Zktlas9v6fZtmH8iURG4VqW1SNxwAGfp0OTvQDn4jFRLzt6A==
@@ -1656,14 +1656,14 @@
     cerebral "^4.2.2"
     mobx "^3.4.1"
 
-"@cerebral/react@~3.2.2":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@cerebral/react/-/react-3.2.2.tgz#9fdd5de8c66cc34cf1b1a8103ec1ec9e9c022a13"
-  integrity sha512-Fx+ENy/cGTU+gMV16bOteLY7Bjlcp5abllennO8rRqomCsSe3H00WqEVkgYmFMEY+/BvDYsxjFSlQJ4GY10Yzg==
+"@cerebral/react@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@cerebral/react/-/react-4.2.1.tgz#205dc99640fd5e12a1ab3474a17fed2d2d5ef8d8"
+  integrity sha512-NXEa2O8Dz3qajEuQZqDCgdAsWru/VZE+1FJWqUalNHEFPdFbSbWp4Aex7afmuCHTaj1S+Apayd/WNG5VoDJr/g==
   dependencies:
-    cerebral "^4.2.2"
+    cerebral "^5.2.1"
 
-"@cerebral/router@~3.2.2":
+"@cerebral/router@^3.2.2":
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/@cerebral/router/-/router-3.2.2.tgz#607c43b57446ff7bb264aeb3787760b212b7df5f"
   integrity sha512-KQ0W91qXcPJTBURLlYnxSidbkoecdjAbHtHUYpjC/kkgrOTybkLTssBpK4GsKrWs+utpUQ+1jA1xfjyGHencdw==
@@ -1672,7 +1672,7 @@
     cerebral "^4.2.2"
     url-mapper "^1.1.1"
 
-"@cerebral/storage@~4.2.2":
+"@cerebral/storage@^4.2.2":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@cerebral/storage/-/storage-4.2.2.tgz#21fbc13bfd9091c15102392aeb0356cc1895be87"
   integrity sha512-vkjQPONKskEVcjCTqK3u6G6/lIsbS04BDO1t4apVI3Mf7JtsTiKQfOnWCUIQKpM5g1/3qgR5eE3aMmnO4jVYUA==
@@ -5990,13 +5990,21 @@ center-align@^0.1.1:
     align-text "^0.1.3"
     lazy-cache "^1.0.3"
 
-cerebral@4.2.2, cerebral@^4.2.2:
+cerebral@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/cerebral/-/cerebral-4.2.2.tgz#11fe5c51f9508bd4ca403deb56e98279f2f658e9"
   integrity sha512-dMh/dIMOoVJtCVRwhNkAaU8gQJYz+QT71bR3k8kuObE2Bg8dE6tkskQNN9jAefJzv5o6EhgAitK2OMicMfCTdQ==
   dependencies:
     es6-error "^4.0.2"
     function-tree "^3.2.2"
+
+cerebral@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/cerebral/-/cerebral-5.2.1.tgz#df4d7c03f8109cd1cc7c48e576be6d0e2119462c"
+  integrity sha512-WROxX7Fau32jd0GIInYu0kAPAIdv6ye8jnYVArgG/ILCB4H+GjPlfS8Uzcdbm56Ka/bfvUsOWVlWNcObtMmMsg==
+  dependencies:
+    es6-error "^4.0.2"
+    function-tree "^3.3.1"
 
 chai@^4.1.2:
   version "4.3.6"
@@ -9887,7 +9895,7 @@ function-pipe@~1.2.1:
     array-flatten "^2.1.2"
     poly-apply "^1.0.0"
 
-function-tree@^3.2.2:
+function-tree@^3.2.2, function-tree@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/function-tree/-/function-tree-3.3.1.tgz#4ff11ab9d5341c64104e09fbba6ca864003093c7"
   integrity sha512-4sRZHwlsCkTOYJnubunF+3tIjnTNzM1q61IirLwicWD4IH9sanQOPiISXO1U8qYVbgpqvBsnaTY4DRD09LBQGQ==
