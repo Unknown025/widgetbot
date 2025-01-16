@@ -36,7 +36,7 @@ export const Root = styled.div`
     }
   }
 
-  ${(theme: any) =>
+  ${({ theme }) =>
     theme.open
       ? css``
       : css`

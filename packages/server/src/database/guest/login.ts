@@ -4,9 +4,9 @@ import Guest, { JWT } from 'database/models/Guest'
 import jwt from 'jsonwebtoken'
 
 interface ILogin {
-  // The guests JWT token
+  // The guest's JWT token
   token: string
-  // The guests IP address (stored in database)
+  // The guest's IP address (stored in database)
   ip: string
 }
 

@@ -24,7 +24,7 @@ export interface IProps {
 
 class WidgetBot extends React.PureComponent<IProps> {
   static defaultProps: IProps = {
-    server: '299881420891881473',
+    server: '186188135095336960',
     shard: 'https://widgetbot.io',
     options: {},
     defer: false,
@@ -42,9 +42,7 @@ class WidgetBot extends React.PureComponent<IProps> {
   })
 
   static getDerivedStateFromProps(props: IProps, state) {
-    const url = `${props.shard}/channels/${props.server}${
-      props.channel ? `/${props.channel}` : ''
-    }/${searchParams({
+    const url = `${props.shard}/channels/${props.server}${props.channel ? `/${props.channel}` : ''}/${searchParams({
       ...props.options,
       api: state.id
     })}`
@@ -62,16 +60,8 @@ class WidgetBot extends React.PureComponent<IProps> {
     const { defer, className, style, height, width, focusable } = this.props
 
     return (
-      <div
-        className={className}
-        style={{ ...Root({ width, height }), ...style }}
-      >
-        <iframe
-          src={defer ? '' : this.state.url}
-          ref={ref => (this.api.iframe = ref)}
-          style={Embed}
-          tabIndex={focusable ? null : -1}
-        />
+      <div className={className} style={{ ...Root({ width, height }), ...style }}>
+        <iframe src={defer ? '' : this.state.url} ref={ref => (this.api.iframe = ref)} style={Embed} tabIndex={focusable ? null : -1} />
       </div>
     )
   }

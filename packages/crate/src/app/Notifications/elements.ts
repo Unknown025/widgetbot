@@ -6,7 +6,7 @@ import Theme from '../../types/theme'
 export const Root = styled.div`
   display: flex;
   pointer-events: none;
-  flex-direction: ${(theme: any) => (theme.coords.y.axis === 'bottom' ? `column-reverse` : `column`)};
+  flex-direction: ${(props: any) => (props.theme.coords.y.axis === 'bottom' ? `column-reverse` : `column`)};
 
   position: fixed;
   z-index: 2147482999;
@@ -14,8 +14,8 @@ export const Root = styled.div`
   width: 300px;
   max-height: calc(70% - 100px);
 
-  ${(theme: any) => {
-    const { x, y } = theme.coords
+  ${(props: any) => {
+    const { x, y } = props.theme.coords
 
     return css({
       [x.axis]: x.offset,

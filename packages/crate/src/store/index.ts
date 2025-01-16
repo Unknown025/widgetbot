@@ -3,13 +3,7 @@ import { Action, handleActions } from 'redux-actions'
 
 import Options from '../types/options'
 import { Notification, State } from '../types/store'
-import {
-  NOTIFICATION,
-  REMOVE_NOTIFICATION,
-  TOGGLE,
-  TOGGLE_VISIBILITY,
-  UPDATE_OPTIONS
-} from './actions/constants'
+import { NOTIFICATION, REMOVE_NOTIFICATION, TOGGLE, TOGGLE_NOTIFICATIONS, TOGGLE_VISIBILITY, UPDATE_OPTIONS } from './actions/constants'
 
 const store = handleActions<State, any>(
   {
@@ -31,6 +25,11 @@ const store = handleActions<State, any>(
       visible: payload
     }),
 
+    [TOGGLE_NOTIFICATIONS]: (state, { payload }: Action<boolean>) =>
+      produce(state, draft => {
+        draft.showNotifications = typeof payload === 'boolean' ? payload : !state.showNotifications
+      }),
+
     [UPDATE_OPTIONS]: (state, action: Action<Options>) => ({
       ...state,
       options: {
@@ -49,14 +48,9 @@ const store = handleActions<State, any>(
         })
       }),
 
-    [REMOVE_NOTIFICATION]: (
-      state,
-      action: Action<{ id: string; decrement?: boolean }>
-    ) =>
+    [REMOVE_NOTIFICATION]: (state, action: Action<{ id: string; decrement?: boolean }>) =>
       produce(state, draft => {
-        const index = draft.notifications.findIndex(
-          message => message.id === action.payload.id
-        )
+        const index = draft.notifications.findIndex(message => message.id === action.payload.id)
 
         if (action.payload.decrement) draft.unread--
 

@@ -1,5 +1,5 @@
 import { css, keyframes } from 'emotion'
-import Channel, { Hash, MegaphoneIcon } from 'styled-elements/channel'
+import Channel, { Hash, MegaphoneIcon, NotificationsOffIcon, NotificationsOnIcon } from 'styled-elements/channel'
 import styled from 'typed-emotion'
 
 const fade = i => keyframes`
@@ -83,6 +83,25 @@ export const Megaphone = styled(MegaphoneIcon)`
   opacity: 0.6;
   height: 100%;
   width: 16px;
+  margin-right: 7px;
+`
+
+export const NotificationsOff = styled(NotificationsOffIcon)`
+  flex-shrink: 0;
+  opacity: 0.6;
+  height: 100%;
+  width: 32px;
+  margin-right: 7px;
+  &:hover {
+    color: white;
+  }
+`
+
+export const NotificationsOn = styled(NotificationsOnIcon)`
+  flex-shrink: 0;
+  opacity: 0.6;
+  height: 100%;
+  width: 32px;
   margin-right: 7px;
 `
 

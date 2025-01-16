@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { toggle } from '../../store/actions'
+import { toggle, toggleNotifications } from '../../store/actions'
 import { State } from '../../types/store'
 import { getAccent } from '../../util/parse'
 import { Icons, Indicator, Root } from './elements'
 
 interface DispatchProps {
-  onClick: () => void
+  onToggleState: () => void
 }
 
 interface StateProps {
@@ -19,21 +19,18 @@ interface StateProps {
 
 class Button extends React.PureComponent<StateProps & DispatchProps> {
   render() {
-    const { onClick, open, indicator, color, unread } = this.props
+    const { onToggleState, open, indicator, color, unread } = this.props
 
     const accent = getAccent(color)
     const showIndicator = indicator && !open
 
     return (
-      <Root onClick={onClick} className="button">
+      <Root onClick={onToggleState} className="button">
         <Icons.Root className="icons">
           <Icons.Close className="close" />
           <Icons.Open className="open" color={accent} />
         </Icons.Root>
-        {showIndicator &&
-          unread > 0 && (
-            <Indicator value={unread}>{unread > 50 ? `50+` : unread}</Indicator>
-          )}
+        {showIndicator && unread > 0 && <Indicator value={unread}>{unread > 50 ? `50+` : unread}</Indicator>}
       </Root>
     )
   }
@@ -47,6 +44,6 @@ export default connect<StateProps, DispatchProps, {}, State>(
     unread
   }),
   dispatch => ({
-    onClick: () => dispatch(toggle(null))
+    onToggleState: () => dispatch(toggle(null))
   })
 )(Button)

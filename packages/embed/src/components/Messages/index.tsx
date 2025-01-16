@@ -1,5 +1,4 @@
 import { connect } from 'fluent'
-import { array } from 'prop-types'
 import * as React from 'react'
 import { FormattedMessage } from 'react-intl'
 import { fetchInvite } from 'socket-io'
@@ -15,7 +14,8 @@ import Group from './group'
 import Message from './Message'
 import { addNotification } from 'notify'
 
-const defaultInvite = 'https://discord.gg/mpMQCuj'
+// Change default to HelioHost's invite.
+const defaultInvite = 'https://discord.gg/fAk2rMfyba'
 
 export default connect()
   .with(({ state, signals, props }) => {

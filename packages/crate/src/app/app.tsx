@@ -9,12 +9,14 @@ import { getCoords } from '../util/parse'
 import Button from './Button'
 import { Root } from './elements'
 import Embed from './Embed'
+import NotificationButton from './NotificationButton'
 import Notifications from './Notifications'
 
 interface StateProps {
   options: Options
   open: boolean
   visible: boolean
+  showNotifications: boolean
 }
 
 class App extends React.Component<StateProps> {
@@ -26,13 +28,14 @@ class App extends React.Component<StateProps> {
   })
 
   render() {
-    const { options, open } = this.props
+    const { options, open, showNotifications } = this.props
 
     return (
       <ThemeProvider theme={this.getTheme()}>
         <Root className="root">
           <Embed />
-          {options.notifications && !open && <Notifications />}
+          {options.notifications && showNotifications && !open && <Notifications />}
+          <NotificationButton />
           <Button />
         </Root>
       </ThemeProvider>
@@ -40,10 +43,9 @@ class App extends React.Component<StateProps> {
   }
 }
 
-export default connect<StateProps, {}, {}, State>(
-  ({ visible, options, open }) => ({
-    options,
-    visible,
-    open
-  })
-)(App)
+export default connect<StateProps, {}, {}, State>(({ visible, options, open, showNotifications }) => ({
+  options,
+  visible,
+  open,
+  showNotifications
+}))(App)

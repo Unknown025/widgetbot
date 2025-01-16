@@ -9,7 +9,8 @@ const defaultState = (options: Options): State => ({
   open: false,
 
   unread: 0,
-  notifications: []
+  notifications: [],
+  showNotifications: true
 })
 
 export default defaultState

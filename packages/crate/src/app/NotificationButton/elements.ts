@@ -2,9 +2,8 @@ import { css, keyframes } from '@emotion/core'
 import styled from '@emotion/styled'
 import Color from 'color'
 
-import CloseIcon from './icons/close'
-import NotificationsOff from '../NotificationButton/icons/notifications-off'
-import OpenIcon from './icons/open'
+import NotificationsOff from './icons/notifications-off'
+import NotificationsOn from './icons/notifications-on'
 
 export const Root = styled.button`
   position: fixed;
@@ -69,31 +68,6 @@ export const Root = styled.button`
   }};
 `
 
-interface IIndicator {
-  value: number
-}
-
-export const Indicator = styled.span<IIndicator>`
-  position: absolute;
-  top: 0;
-
-  width: 18px;
-  height: 18px;
-  line-height: 18px;
-  border-radius: 50%;
-  text-align: center;
-  user-select: none;
-
-  font-family: Roboto, sans-serif;
-  font-size: ${({ value }) => (value > 50 ? '7px' : value > 9 ? `9px` : `12px`)};
-
-  background: #ff2a2a;
-  color: #fff;
-  box-shadow: 0px 3px 5px -1px rgba(255, 42, 42, 0.38), 0px 4px 9px 0px rgba(255, 42, 42, 0.38), 0px 1px 12px 0px rgba(255, 42, 42, 0.22);
-
-  ${({ theme }) => css({ [theme.coords.x.axis]: 0 })};
-`
-
 export namespace Icons {
   export const Root = styled.div`
     width: 56px;
@@ -110,39 +84,11 @@ export namespace Icons {
     }
   `
 
-  export const Open = styled(OpenIcon)`
-    padding: 12px;
-    border-radius: inherit;
-
-    ${({ theme }) => {
-      const [url, size] = theme.options.glyph
-
-      return (
-        url &&
-        size &&
-        css`
-          background: url(${url}) no-repeat center;
-          background-size: ${size};
-
-          * {
-            display: none;
-          }
-        `
-      )
-    }};
-
-    ${({ theme }) =>
-      theme.open &&
-      css`
-        opacity: 0;
-        transform: rotate(30deg) scale(0);
-      `};
-  `
-
-  export const Close = styled(CloseIcon)`
+  export const NotificationsOffButton = styled(NotificationsOff)`
     padding: 19px;
     opacity: 0.6;
     border-radius: inherit;
+    left: -35px;
 
     &:hover {
       opacity: 0.95;
@@ -156,7 +102,7 @@ export namespace Icons {
       `};
   `
 
-  export const Notifications = styled(NotificationsOff)`
+  export const NotificationsOnButton = styled(NotificationsOn)`
     padding: 19px;
     opacity: 0.6;
     border-radius: inherit;

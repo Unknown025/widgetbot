@@ -20,4 +20,5 @@ export interface State {
 
   unread: number
   notifications: Notification[]
+  showNotifications: boolean
 }

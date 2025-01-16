@@ -4,17 +4,17 @@ const html = String.raw
 
 document.querySelector('#demo').innerHTML = html`
   <widgetbot
-    server="436136130035843082"
-    channel="436136130035843084"
+    server="186188135095336960"
+    channel="419674373746720778"
     shard="http://localhost:3000"
     id="embed"
-    height="300"
+    height="600"
     width="500"
   >
   </widgetbot>
 
-  <widgetbot
-    server="299881420891881473"
+  <widgetbot style="resize: both"
+    server="186188135095336960"
     shard="http://localhost:3000"
   >
   </widgetbot>

@@ -26,7 +26,7 @@ class Controller extends React.Component<StateProps & OwnProps> {
     emotionCache: null,
     id: `crate-${Math.random()
       .toString(36)
-      .substr(2, 9)}`
+      .substring(2, 9)}`
   }
 
   registerEmotion = (styleInjection: HTMLDivElement) => {
@@ -39,9 +39,7 @@ class Controller extends React.Component<StateProps & OwnProps> {
 
   shadowDOM(props) {
     const children = <shadow-root>{props.children}</shadow-root>
-    const supported = !!(
-      (document.head as any).createShadowRoot || document.head.attachShadow
-    )
+    const supported = !!((document.head as any).createShadowRoot || document.head.attachShadow)
 
     return supported ? <ShadowDOM>{children}</ShadowDOM> : children
   }
@@ -76,10 +74,8 @@ class Controller extends React.Component<StateProps & OwnProps> {
   }
 }
 
-export default connect<StateProps, {}, {}, State>(
-  ({ interactive, open, options }) => ({
-    css: options.css,
-    interactive,
-    open
-  })
-)(Controller)
+export default connect<StateProps, {}, {}, State>(({ interactive, open, options }) => ({
+  css: options.css,
+  interactive,
+  open
+}))(Controller)

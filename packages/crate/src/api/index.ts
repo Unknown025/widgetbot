@@ -16,7 +16,7 @@ import { enhancer, observeOptions } from './util'
 class Crate extends EmbedAPI {
   options = observeOptions(
     {
-      server: '299881420891881473',
+      server: '186188135095336960',
       channel: null,
       location: ['bottom', 'right'],
 
@@ -36,7 +36,7 @@ class Crate extends EmbedAPI {
 
   /**
    * Instantiate a new Crate instant
-   * @param options The options to use
+   * @param userOptions The options to use
    */
   constructor(userOptions: Options) {
     super()
@@ -121,9 +121,7 @@ class Crate extends EmbedAPI {
   /**
    * Notifies a message to the user
    */
-  notify(
-    content: string | Message & { timeout?: string | false; id?: string }
-  ) {
+  notify(content: string | Message & { timeout?: string | false; id?: string }) {
     const props = typeof content === 'string' ? { content } : content
 
     const data = {
@@ -135,8 +133,7 @@ class Crate extends EmbedAPI {
 
     this.store.dispatch(actions.message(data))
 
-    const hide = () =>
-      this.store.dispatch(actions.deleteMessage({ id: data.id }))
+    const hide = () => this.store.dispatch(actions.deleteMessage({ id: data.id }))
 
     // Hide the message after timeout
     if (data.timeout) setTimeout(hide, +data.timeout)

@@ -46,13 +46,11 @@ class Embed {
   }
 
   private parseAttributes(node: Element) {
-    const server = node.getAttribute('server') || '299881420891881473'
+    const server = node.getAttribute('server') || '186188135095336960'
     const channel = node.getAttribute('channel')
     const shard = node.getAttribute('shard') || 'https://widgetbot.io'
 
-    const url = `${shard}/channels/${server}${
-      channel ? `/${channel}` : ''
-    }/?api=${this.id}`
+    const url = `${shard}/channels/${server}${channel ? `/${channel}` : ''}/?api=${this.id}`
 
     const width = node.getAttribute('width')
     const height = node.getAttribute('height')
