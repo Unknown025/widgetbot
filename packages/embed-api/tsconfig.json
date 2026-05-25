@@ -4,6 +4,7 @@
     "outDir": "dist",
     "lib": ["es6", "dom", "esnext.asynciterable"],
     "allowJs": false,
-    "declaration": true
+    "declaration": true,
+    "types": []
   }
 }

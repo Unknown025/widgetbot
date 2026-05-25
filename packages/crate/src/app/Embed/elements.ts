@@ -7,7 +7,7 @@ export const Root = styled.div`
   z-index: 2147482999;
   transition: opacity 0.4s ease, transform 0.3s cubic-bezier(0.24, 0.6, 0.35, 0.96);
 
-  ${({ theme }) => {
+  ${({ theme }: any) => {
     const { x, y } = theme.coords
 
     return css({
@@ -36,7 +36,7 @@ export const Root = styled.div`
     }
   }
 
-  ${({ theme }) =>
+  ${({ theme }: any) =>
     theme.open
       ? css``
       : css`
