@@ -37,18 +37,18 @@ const Link = ({ children, ...props }) => (
   </a>
 )
 
-const EmbedTitle = ({ title, url }) =>
+const EmbedTitle = ({ title, url, mentions }) =>
   title ? (
     url ? (
       <Title>
-        <Link href={url}>{parseEmojis(parseEmbedTitle(title))}</Link>
+        <Link href={url}>{parseEmojis(parseEmbedTitle(title, true, { mentions }))}</Link>
       </Title>
     ) : (
-      <Title>{parseEmojis(parseEmbedTitle(title))}</Title>
+      <Title>{parseEmojis(parseEmbedTitle(title, true, { mentions }))}</Title>
     )
   ) : null
 
-const EmbedDescription = ({ content }) => (content ? <Description>{parseEmojis(parseAllowLinks(content))}</Description> : null)
+const EmbedDescription = ({ content, mentions }) => (content ? <Description>{parseEmojis(parseAllowLinks(content, false, { mentions }))}</Description> : null)
 
 const EmbedAuthor = ({ name, url, iconURL }) => {
   if (!name) {
@@ -77,13 +77,13 @@ const EmbedAuthor = ({ name, url, iconURL }) => {
   )
 }
 
-const EmbedField = ({ name, value, inline }) => {
+const EmbedField = ({ name, value, inline, mentions }) => {
   if (!name && !value) {
     return null
   }
 
-  const fieldName = name ? <FieldName>{parseEmojis(parseEmbedTitle(name))}</FieldName> : null
-  const fieldValue = value ? <FieldValue>{parseEmojis(parseAllowLinks(value))}</FieldValue> : null
+  const fieldName = name ? <FieldName>{parseEmojis(parseEmbedTitle(name, true, { mentions }))}</FieldName> : null
+  const fieldValue = value ? <FieldValue>{parseEmojis(parseAllowLinks(value, false, { mentions }))}</FieldValue> : null
 
   return (
     <Field inline={inline}>
@@ -131,15 +131,15 @@ const EmbedFooter = ({ timestamp, text, proxyIconUrl }) => {
   )
 }
 
-const EmbedFields = ({ fields }) => {
+const EmbedFields = ({ fields, mentions }) => {
   if (!fields) {
     return null
   }
 
-  return <Fields>{fields.map((f, i) => <EmbedField key={i} {...f} />)}</Fields>
+  return <Fields>{fields.map((f, i) => <EmbedField key={i} {...f} mentions={mentions} />)}</Fields>
 }
 
-const Embed = ({ color, author, title, url, description, fields, thumbnail, image, timestamp, footer, ...embed }) =>
+const Embed = ({ color, author, title, url, description, fields, thumbnail, image, timestamp, footer, mentions = null, ...embed }) =>
   embed.type === 'gifv' ? (
     <Image src={embed.video.url.replace('.mp4', '.gif')} width={+embed.video.width} height={+embed.video.height} />
   ) : (
@@ -155,9 +155,9 @@ const Embed = ({ color, author, title, url, description, fields, thumbnail, imag
           <Content>
             <div>
               <EmbedAuthor {...author} />
-              <EmbedTitle title={title} url={url} />
-              <EmbedDescription content={description} />
-              <EmbedFields fields={fields} />
+              <EmbedTitle title={title} url={url} mentions={mentions} />
+              <EmbedDescription content={description} mentions={mentions} />
+              <EmbedFields fields={fields} mentions={mentions} />
             </div>
             <EmbedThumbnail type={embed.type} {...thumbnail} />
           </Content>

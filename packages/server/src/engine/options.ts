@@ -4,6 +4,7 @@ import { ClientOptions, GatewayIntentBits, Options } from 'discord.js'
 const options: ClientOptions = {
   intents: [
     GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageTyping,
     GatewayIntentBits.GuildInvites,

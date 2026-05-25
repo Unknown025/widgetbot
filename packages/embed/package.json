@@ -58,7 +58,7 @@
     "uuid": "~3.2.1"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
+    "start": "NODE_OPTIONS=\"--openssl-legacy-provider --require ../../mock-http-parser.js\" react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",

@@ -1,4 +1,5 @@
 import * as hljs from 'highlight.js'
+import * as Moment from 'moment'
 import * as React from 'react'
 import SimpleMarkdown from 'simple-markdown'
 import { iterate } from 'styled-elements/Emoji/emojiMap'
@@ -6,7 +7,7 @@ import { iterate } from 'styled-elements/Emoji/emojiMap'
 import controller from '../../../../controllers/cerebral'
 import message from '../../../../types/message'
 import Embed from '../Embed'
-import { Channel, Code, Edited, Emoji, Image, Link, Mention, Role, Twemoji } from './elements'
+import { Channel, Code, Edited, Emoji, Image, Link, Mention, Role, Timestamp, Twemoji } from './elements'
 
 export function parseText(msg: message) {
   function mentions(array: [string | string[]], mentions) {
@@ -328,9 +329,49 @@ function translateSurrogatesToInlineEmoji(surrogates) {
   return surrogates.replace(replacer, (_, match) => convertSurrogateToName(match))
 }
 
+function formatTimestamp(unixSeconds: number, style: string): string {
+  const m = Moment(unixSeconds * 1000)
+  switch (style) {
+    case 't': return m.format('LT')
+    case 'T': return m.format('LTS')
+    case 'd': return m.format('L')
+    case 'D': return m.format('LL')
+    case 'f': return m.format('LLL')
+    case 'F': return m.format('LLLL')
+    case 'R': return m.fromNow()
+    default: return m.format('LLL')
+  }
+}
+
+function getFullTimestamp(unixSeconds: number): string {
+  return Moment(unixSeconds * 1000).format('LLLL')
+}
+
 // i am not sure why are these rules split like this.
 
 const baseRules = {
+  timestamp: {
+    order: SimpleMarkdown.defaultRules.text.order - 1,
+    match(source) {
+      return /^<t:(-?\d+)(?::([tTdDfFR]))?>/.exec(source)
+    },
+    parse(capture) {
+      return {
+        timestamp: parseInt(capture[1], 10),
+        style: capture[2] || 'f'
+      }
+    },
+    react(node, recurseOutput, state) {
+      return createReactElement(
+        Timestamp,
+        {
+          title: getFullTimestamp(node.timestamp)
+        },
+        state.key,
+        formatTimestamp(node.timestamp, node.style)
+      )
+    }
+  },
   newline: SimpleMarkdown.defaultRules.newline,
   paragraph: SimpleMarkdown.defaultRules.paragraph,
   escape: SimpleMarkdown.defaultRules.escape,

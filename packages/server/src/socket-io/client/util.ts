@@ -11,6 +11,7 @@ export const sendErrors = (notification: Notification) => (target: SocketControl
     try {
       await method.bind(this)(...args)
     } catch (message) {
+      console.error(`Error handling '${propertyKey}':`, message);
       this.notify({
         level: 'warning',
         autoDismiss: 20,

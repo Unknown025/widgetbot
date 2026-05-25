@@ -12,6 +12,7 @@ import { io } from 'app'
 import Guests from './guests'
 import MessageStore from './message-store'
 import Parse from './util/parse'
+import Member from './util/parse/member'
 
 export const client = new Client(options)
 export const cache = new MessageStore()
@@ -156,6 +157,40 @@ export async function Login(token: string) {
       memberCount: guild.memberCount,
       id: guild.id
     })
+  })
+
+  client.on('guildMemberUpdate', async (oldMember, newMember) => {
+    const oldName = oldMember.displayName
+    const newName = newMember.displayName
+    const oldColor = oldMember.displayHexColor
+    const newColor = newMember.displayHexColor
+
+    const rolesChanged = oldMember.roles.cache.size !== newMember.roles.cache.size ||
+      !oldMember.roles.cache.every(role => newMember.roles.cache.has(role.id))
+
+    if (oldName !== newName || oldColor !== newColor || rolesChanged) {
+      const server = newMember.guild.id
+
+      if (cache.store.has(server)) {
+        const channelsStore = cache.store.get(server)
+        const parsedMemberFields = await Member(newMember)
+
+        for (const [channel, messagesCollection] of channelsStore.entries()) {
+          for (const [messageId, message] of messagesCollection.entries()) {
+            if (message.author.id === newMember.id) {
+              message.author.name = parsedMemberFields.name || message.author.name
+              message.author.color = parsedMemberFields.color
+              message.author.roles = parsedMemberFields.roles
+
+              io.to(`${server}/${channel}`).emit('messageUpdate', {
+                channel,
+                message
+              })
+            }
+          }
+        }
+      }
+    }
   })
 
   return client
