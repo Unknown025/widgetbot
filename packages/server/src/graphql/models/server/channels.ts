@@ -20,7 +20,25 @@ async function Channels(server: string) {
       )
 
       // Order channels by position
-      .sort((a, b) => ((a as TextChannel).position > (b as TextChannel).position ? 1 : -1))
+      .sort((a, b) => {
+        const chanA = a as TextChannel
+        const chanB = b as TextChannel
+
+        const catA = chanA.parent ? chanA.parent.position : -1
+        const catB = chanB.parent ? chanB.parent.position : -1
+
+        if (catA !== catB) {
+          return catA - catB
+        }
+
+        const parentIdA = chanA.parent ? chanA.parent.id : ''
+        const parentIdB = chanB.parent ? chanB.parent.id : ''
+        if (parentIdA !== parentIdB) {
+          return parentIdA.localeCompare(parentIdB)
+        }
+
+        return chanA.position - chanB.position
+      })
 
       // Inject extra details into the channels
       .map(

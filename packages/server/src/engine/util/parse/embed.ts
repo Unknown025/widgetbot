@@ -3,42 +3,87 @@ import * as Discord from 'discord.js'
 import * as Message from '../../../types/message'
 
 class Embed implements Message.Embed {
-  fields
-  footer
-  thumbnail
-  author
-  image
-  provider
-  video
-  embed
-  message
+  title?: string
+  description?: string
+  url?: string
+  timestamp?: number
+  color?: number
+  type?: string
+  fields?: { name: string; value: string; inline: boolean }[]
+  footer?: { text?: string; iconURL?: string; proxyIconUrl?: string }
+  thumbnail?: { url?: string; proxyURL?: string; height?: number; width?: number }
+  image?: { url?: string; proxyURL?: string; height?: number; width?: number }
+  author?: { name?: string; url?: string; iconURL?: string; proxyIconURL?: string }
+  provider?: { name?: string; url?: string }
+  video?: { url?: string; height?: number; width?: number }
 
   constructor(embed: Discord.Embed) {
-    if (!embed) return
+    if (!embed || !embed.data) return
 
-    Object.assign(this, embed)
+    this.title = embed.data.title ?? undefined
+    this.description = embed.data.description ?? undefined
+    this.url = embed.data.url ?? undefined
+    this.timestamp = embed.data.timestamp ? new Date(embed.data.timestamp).getTime() : undefined
+    this.color = embed.data.color ?? undefined
+    this.type = embed.data.type ?? undefined
 
-    this.fields = this.arrayFilter(this.fields)
-    this.footer = this.objectFilter(this.footer)
-    this.thumbnail = this.objectFilter(this.thumbnail)
-    this.author = this.objectFilter(this.author)
-    this.image = this.objectFilter(this.image)
-    this.provider = this.objectFilter(this.provider)
-    this.video = this.objectFilter(this.video)
+    if (embed.data.fields) {
+      this.fields = embed.data.fields.map(f => ({
+        name: f.name,
+        value: f.value,
+        inline: !!f.inline
+      }))
+    }
 
-    delete this.embed
-    delete this.message
-  }
+    if (embed.data.footer) {
+      this.footer = {
+        text: embed.data.footer.text ?? undefined,
+        iconURL: embed.data.footer.icon_url ?? undefined,
+        proxyIconUrl: embed.data.footer.proxy_icon_url ?? undefined
+      }
+    }
 
-  objectFilter(item: {}) {
-    if (!item) return item
-    delete (item as { embed: string }).embed
-    return item
-  }
+    if (embed.data.thumbnail) {
+      this.thumbnail = {
+        url: embed.data.thumbnail.url ?? undefined,
+        proxyURL: embed.data.thumbnail.proxy_url ?? undefined,
+        height: embed.data.thumbnail.height ?? undefined,
+        width: embed.data.thumbnail.width ?? undefined
+      }
+    }
 
-  arrayFilter(array: {}[]) {
-    if (!array) return array
-    return array.map(item => this.objectFilter(item))
+    if (embed.data.image) {
+      this.image = {
+        url: embed.data.image.url ?? undefined,
+        proxyURL: embed.data.image.proxy_url ?? undefined,
+        height: embed.data.image.height ?? undefined,
+        width: embed.data.image.width ?? undefined
+      }
+    }
+
+    if (embed.data.author) {
+      this.author = {
+        name: embed.data.author.name ?? undefined,
+        url: embed.data.author.url ?? undefined,
+        iconURL: embed.data.author.icon_url ?? undefined,
+        proxyIconURL: embed.data.author.proxy_icon_url ?? undefined
+      }
+    }
+
+    if (embed.data.provider) {
+      this.provider = {
+        name: embed.data.provider.name ?? undefined,
+        url: embed.data.provider.url ?? undefined
+      }
+    }
+
+    if (embed.data.video) {
+      this.video = {
+        url: embed.data.video.url ?? undefined,
+        height: embed.data.video.height ?? undefined,
+        width: embed.data.video.width ?? undefined
+      }
+    }
   }
 }
 

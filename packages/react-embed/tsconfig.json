@@ -4,6 +4,7 @@
     "outDir": "dist",
     "allowJs": false,
     "declaration": true,
-    "jsx": "react"
+    "jsx": "react",
+    "types": []
   }
 }

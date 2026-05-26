@@ -30,7 +30,7 @@ export const Root = styled.button`
     }
   `} 0.3s ease;
 
-  ${({ theme }) => {
+  ${({ theme }: any) => {
     const { x, y } = theme.coords
 
     return css({
@@ -39,7 +39,7 @@ export const Root = styled.button`
     })
   }};
 
-  ${({ theme }) => {
+  ${({ theme }: any) => {
     const color = Color(theme.options.color)
 
     return theme.open
@@ -53,7 +53,7 @@ export const Root = styled.button`
         `
   }};
 
-  ${({ theme }) => {
+  ${({ theme }: any) => {
     const { x, y } = theme.coords
 
     return y.margin && x.margin
@@ -91,7 +91,7 @@ export const Indicator = styled.span<IIndicator>`
   color: #fff;
   box-shadow: 0px 3px 5px -1px rgba(255, 42, 42, 0.38), 0px 4px 9px 0px rgba(255, 42, 42, 0.38), 0px 1px 12px 0px rgba(255, 42, 42, 0.22);
 
-  ${({ theme }) => css({ [theme.coords.x.axis]: 0 })};
+  ${({ theme }: any) => css({ [theme.coords.x.axis]: 0 })};
 `
 
 export namespace Icons {
@@ -114,7 +114,7 @@ export namespace Icons {
     padding: 12px;
     border-radius: inherit;
 
-    ${({ theme }) => {
+    ${({ theme }: any) => {
       const [url, size] = theme.options.glyph
 
       return (
@@ -131,7 +131,7 @@ export namespace Icons {
       )
     }};
 
-    ${({ theme }) =>
+    ${({ theme }: any) =>
       theme.open &&
       css`
         opacity: 0;
@@ -148,7 +148,7 @@ export namespace Icons {
       opacity: 0.95;
     }
 
-    ${({ theme }) =>
+    ${({ theme }: any) =>
       !theme.open &&
       css`
         opacity: 0 !important;
@@ -166,7 +166,7 @@ export namespace Icons {
       opacity: 0.95;
     }
 
-    ${({ theme }) =>
+    ${({ theme }: any) =>
       !theme.open &&
       css`
         opacity: 0 !important;

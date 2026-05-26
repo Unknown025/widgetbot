@@ -35,7 +35,7 @@ const initiate = () => {
   socket.on('notify', addNotification)
 
   // Embed API
-  socket.on('signIn', d => api.emit('signIn', _.omit(d, 'token')))
+  socket.on('signIn', d => api.emit('signIn', _.omit(d, 'token') as any))
 
   socket.on('message', d => api.emit('message', d))
   socket.on('messageUpdate', d => api.emit('messageUpdate', d))

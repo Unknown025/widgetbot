@@ -66,7 +66,7 @@ export interface Embed {
   fields?: EmbedField[]
   footer?: EmbedFooter
   thumbnail?: EmbedThumbnail
-  author: Author
+  author?: EmbedAuthor
   image?: EmbedImage
   provider?: EmbedProvider
   video?: EmbedVideo
@@ -74,6 +74,13 @@ export interface Embed {
   description?: string
   url?: string
   timestamp?: number
+}
+
+export interface EmbedAuthor {
+  name?: string
+  url?: string
+  iconURL?: string
+  proxyIconURL?: string
 }
 
 export interface EmbedField {

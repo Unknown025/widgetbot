@@ -84,22 +84,23 @@ export const JoinMember = styled.a`
 `
 
 export const Root = styled.div`
-  color: ${({ theme }) => theme.colors._primary.fadeOut(0.3).toString()};
-  opacity: 1;
+  color:       ${({ theme }) => theme.colors._primary.fadeOut(0.3).toString()};
+  opacity:     1;
 
-  font-size: 0.9375rem;
+  font-size:   0.9375rem;
   line-height: 1.1em;
-  margin-top: 4px;
+  margin-top:  4px;
   white-space: pre-wrap;
-  word-wrap: break-word;
+  word-wrap:   break-word;
 
   & * {
     color: inherit;
   }
 
   & a {
-    color: #0096cf;
+    color:           #0096CF;
     text-decoration: none;
+
     &:hover {
       text-decoration: underline;
     }
@@ -107,7 +108,62 @@ export const Root = styled.div`
 
   & strong {
     font-weight: 700;
-    color: inherit;
+    color:       inherit;
+  }
+
+  & p {
+    margin: 0;
+  }
+
+  & h1, & h2, & h3 {
+    font-weight:   700;
+    margin-top:    0;
+    margin-bottom: 0;
+    line-height:   1.25;
+  }
+
+  & h1 {
+    font-size: 1.45rem;
+  }
+
+  & h2 {
+    font-size: 1.25rem;
+  }
+
+  & h3 {
+    font-size: 1rem;
+  }
+
+  & blockquote {
+    border-left: 4px solid #4F545C;
+    margin:      2px 0;
+    padding:     2px 0 2px 12px;
+    color:       ${({ theme }) => theme.colors._primary.fadeOut(0.45).toString()} !important;
+  }
+
+  & ul, & ol {
+    margin:  2px 0 2px 20px;
+    padding: 0;
+  }
+
+  & ul {
+    list-style-type: disc;
+  }
+
+  & ol {
+    list-style-type: decimal;
+  }
+
+  & li {
+    margin-bottom: 2px;
+  }
+
+  & small.markdown-subtext {
+    font-size:   0.825rem;
+    line-height: 1.1rem;
+    opacity:     0.65;
+    display:     block;
+    margin-top:  0;
   }
 `
 

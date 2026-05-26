@@ -7,10 +7,10 @@ import { app } from 'app'
 import fetchInvite from 'engine/util/fetchInvite'
 
 app.use('/api/server/:server/:channel?', async (req, res) => {
-  const { server, channel } = req.params
+  const { server, channel } = req.params as any
   try {
     const invite = await fetchInvite({ server, channel })
-    res.redirect(invite, 301)
+    res.redirect(301, invite)
   } catch (error) {
     res.status(400).json({
       success: false,

@@ -29,7 +29,7 @@ export const Root = styled.button`
     }
   `} 0.3s ease;
 
-  ${({ theme }) => {
+  ${({ theme }: any) => {
     const { x, y } = theme.coords
 
     return css({
@@ -38,7 +38,7 @@ export const Root = styled.button`
     })
   }};
 
-  ${({ theme }) => {
+  ${({ theme }: any) => {
     const color = Color(theme.options.color)
 
     return theme.open
@@ -52,7 +52,7 @@ export const Root = styled.button`
         `
   }};
 
-  ${({ theme }) => {
+  ${({ theme }: any) => {
     const { x, y } = theme.coords
 
     return y.margin && x.margin
@@ -94,7 +94,7 @@ export namespace Icons {
       opacity: 0.95;
     }
 
-    ${({ theme }) =>
+    ${({ theme }: any) =>
       !theme.open &&
       css`
         opacity: 0 !important;
@@ -112,7 +112,7 @@ export namespace Icons {
       opacity: 0.95;
     }
 
-    ${({ theme }) =>
+    ${({ theme }: any) =>
       !theme.open &&
       css`
         opacity: 0 !important;

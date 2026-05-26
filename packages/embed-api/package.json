@@ -13,11 +13,11 @@
   },
   "private": false,
   "dependencies": {
-    "@types/ws": "^8.5.4",
-    "post-robot": "~8.0.28"
+    "@types/ws": "8.18.1",
+    "post-robot": "^8.0.32"
   },
   "devDependencies": {
     "cpy-cli": "~2.0.0",
-    "typescript": "^4.3.5"
+    "typescript": "4"
   }
 }

@@ -11,6 +11,16 @@ import Attachment from 'engine/util/parse/attachment'
 import Roles from 'engine/util/parse/roles'
 import Member from 'engine/util/parse/member'
 
+async function getOrFetchMember(message: Discord.Message) {
+  if (message.member) return message.member
+  if (!message.guild) return null
+
+  const cached = message.guild.members.cache.get(message.author.id)
+  if (cached) return cached
+
+  return await message.guild.members.fetch(message.author.id).catch(() => null)
+}
+
 //TODO: Fix member parsing, as it is still inconsistent.
 async function Parse(message: Discord.Message) {
   const parsed: Message = {
@@ -30,7 +40,7 @@ async function Parse(message: Discord.Message) {
         : message.author.defaultAvatarURL.replace(/\?size=(.*)/, '?size=64'),
       id: message.author.id,
 
-      ...(await Member(message.member))
+      ...(await Member(await getOrFetchMember(message)))
     },
     timestamp: message.createdTimestamp,
     content: message.content || null,
@@ -44,12 +54,29 @@ async function Parse(message: Discord.Message) {
         name: channel instanceof GuildChannel ? (channel as GuildChannel).name : 'unknown',
         id: channel.id
       })),
-      members: message.mentions.members.map(member => ({
-        name: member.displayName,
-        id: member.id,
-        roles: member.roles.cache.map(role => Role(role)),
-        avatar: member.user.avatarURL() ? member.user.avatarURL().replace(/\?size=(.*)/, '?size=128') : null
-      })),
+      members: await Promise.all(
+        [...message.mentions.users.values()].map(async user => {
+          let member = message.guild?.members.cache.get(user.id)
+          if (!member && message.guild) {
+            member = await message.guild.members.fetch(user.id).catch(() => null)
+          }
+          if (member) {
+            return {
+              name: member.displayName,
+              id: member.id,
+              roles: member.roles.cache.map(role => Role(role)),
+              avatar: member.user.avatarURL() ? member.user.avatarURL().replace(/\?size=(.*)/, '?size=128') : null
+            }
+          } else {
+            return {
+              name: user.globalName || user.username,
+              id: user.id,
+              roles: [],
+              avatar: user.avatarURL() ? user.avatarURL().replace(/\?size=(.*)/, '?size=128') : null
+            }
+          }
+        })
+      ),
       roles: await Roles([...message.mentions.roles.values()]),
       everyone: message.mentions.everyone
     }
