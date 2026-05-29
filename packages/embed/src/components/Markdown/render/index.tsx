@@ -134,7 +134,8 @@ function parserFor(rules, returnAst?) {
       input += '\n\n'
     }
 
-    let ast = parser(input, { inline, ...state })
+    const parseState = { inline, ...state }
+    let ast = parser(input, parseState)
     ast = flattenAst(ast)
     if (!inline) {
       const blockTypes = ['heading', 'subtext', 'blockQuote', 'list', 'codeBlock']
@@ -160,7 +161,7 @@ function parserFor(rules, returnAst?) {
       return ast
     }
 
-    return renderer(ast)
+    return renderer(ast, parseState)
   }
 }
 
